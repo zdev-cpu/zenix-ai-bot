@@ -9,7 +9,8 @@ const client = new Client({
   ]
 });
 
-const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_KEY });
+// FIXED INITIALIZATION FOR GEMINI
+const ai = new GoogleGenAI(process.env.GEMINI_KEY);
 
 const SYSTEM_PROMPT = `
 You are a polite, safe, and appropriate Discord server assistant. Keep your responses short and friendly.
