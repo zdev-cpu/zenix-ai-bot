@@ -1,5 +1,5 @@
 const { Client, GatewayIntentBits } = require('discord.js');
-const { GoogleGenAI } = require('@google/generative-ai');
+const { GoogleGenerativeAI } = require('@google/generative-ai');
 
 const client = new Client({
   intents: [
@@ -9,8 +9,8 @@ const client = new Client({
   ]
 });
 
-// FIXED INITIALIZATION FOR GEMINI
-const ai = new GoogleGenAI(process.env.GEMINI_KEY);
+// Fixed constructor for the official Google SDK package
+const ai = new GoogleGenerativeAI(process.env.GEMINI_KEY);
 
 const SYSTEM_PROMPT = `
 You are a polite, safe, and appropriate Discord server assistant. Keep your responses short and friendly.
@@ -38,6 +38,7 @@ client.on('messageCreate', async (message) => {
 
   if (isTag || isKeyword) {
     try {
+      // Pulls the correct generative model instance
       const model = ai.getGenerativeModel({ model: "gemini-1.5-flash" });
       const fullPrompt = `${SYSTEM_PROMPT}\n\nUser says: ${message.content}`;
       
